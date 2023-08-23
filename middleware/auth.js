@@ -24,13 +24,11 @@ async function verifyToken_User(req, res, next) {
 			jwt.verify(token, process.env.TOKEN_KEY, function (err, decoded) {
 				if (err) {
 					return res.send(err);
+				} else {
+					return next()
 				}
-        else{
-          return next()
-        }
 			});
-		} 
-    else {
+		} else {
 			return res.send("Invalid Token for a User");
 		}
 	} catch (err) {
@@ -60,19 +58,16 @@ async function verifyToken_Emp(req, res, next) {
 			jwt.verify(token, process.env.TOKEN_KEY, function (err, decoded) {
 				if (err) {
 					return res.send(err);
+				} else {
+					return next();
 				}
-        else{
-          return next()
-        }
 			});
-		} 
-    else {
+		} else {
 			return res.send("Invalid Token for a User");
 		}
 	} catch (err) {
 		return res.status(400).send("Bad Request");
 	}
 }
-
 
 module.exports.verifyToken_Emp = verifyToken_Emp;

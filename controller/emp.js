@@ -16,7 +16,7 @@ module.exports.greet = greet;
 
 
 async function login(req, res) {
-	// try {
+	try {
 		const Email = req.body.Email;
 		const Password = req.body.Password;
 		if (!Email || !Password) {
@@ -40,9 +40,9 @@ async function login(req, res) {
 		else{
 			return res.send("Invalid Email or Password")
 		}
-	// } catch {
-	// 	return res.status(500).json("Internal server error");
-	// }
+	} catch {
+		return res.status(500).json("Internal server error");
+	}
 }
 module.exports.login = login;
 
