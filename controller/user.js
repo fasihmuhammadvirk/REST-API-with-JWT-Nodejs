@@ -1,10 +1,9 @@
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-// const process = require("dotenv").config();
 const mongoose = require("mongoose");
-
-TOKEN_KEY = "FasihMuhammadVirk";  
+require('dotenv').config()
+  
 
 async function reg_user(req, res, next) {
     
@@ -49,12 +48,12 @@ async function login_user(req, res) {
         const Email = req.body.Email;
         const Password = req.body.Password;
         
-        User.findOne({ Email })
+        await User.findOne({ Email })
             .then((data) => {
                 if (Email == data.Email || bcrypt.compare(Password, data.Password)) {
                     let token = jwt.sign(
                         { email: Email, password: Password },
-                        TOKEN_KEY,
+                        process.env.TOKEN_KEY,
                         {
                             expiresIn: "1hr",
                         }
