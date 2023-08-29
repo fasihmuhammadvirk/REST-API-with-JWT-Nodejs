@@ -1,8 +1,5 @@
-const Emp = require("../models/emp");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
-const mongoose = require("mongoose");
-require('dotenv').config()
+const Employee = require("../models/emp");
+const auth = require("../middleware/auth")
 
 function greet(req, res) {
 	try {
@@ -13,33 +10,28 @@ function greet(req, res) {
 }
 module.exports.greet = greet;
 
-
-
 async function login(req, res) {
 	try {
 		const Email = req.body.Email;
 		const Password = req.body.Password;
+
 		if (!Email || !Password) {
 			return res.send("Please fill all Fields");
 		}
 
-		_employee = await Emp.findOne({ Email })
-		if(!_employee){
+		_employee = await Employee.findOne({ Email });
+		if (!_employee) {
 			return res.send("You are Not an Employee Here");
 		}
-		if(_employee.Email == Email ||bcrypt.compare(Password, _employee.Password)){
-			let token = jwt.sign(
-				{ email: Email, password: Password },
-				process.env.TOKEN_KEY,
-				{
-					expiresIn: "1hr",
-				}
-				);
-			return res.send(`Login Successful\nYour Token: ${token}`)
+
+		const isMatch = await _employee.comparePassword(Password);
+
+		if (!isMatch) {
+			return res.send("Incorrect Password");
 		}
-		else{
-			return res.send("Invalid Email or Password")
-		}
+
+		const token = auth.generate_token(_employee._id, _employee.Email);
+		return res.send(`Login Successfully\n Your Token: ${token}`);
 	} catch {
 		return res.status(500).json("Internal server error");
 	}
@@ -54,25 +46,29 @@ async function create(req, res) {
 		let FirstName = req.body.FirstName;
 		let LastName = req.body.LastName;
 		let Password = req.body.Password;
-		if (!Email || !Phone || !FirstName || !LastName || !Password) {
+
+		if (!Email || !Phone || !Password) {
 			return res.send("Please fill all the fields");
 		}
 
-		let hash = await bcrypt.hash(Password, 10);
-		let emp = new Emp({
+		const isUser = await Employee.findOne({Email})
+		if (isUser){
+			return res.send("User Already Exists")
+		}
+
+		let _employee = new Employee({
 			Email,
 			Phone,
 			FirstName,
 			LastName,
-			Password: hash,
+			Password,
 		});
-		emp
-			.save()
-			.then((data) => {
+
+		_employee.save().then((data) => {
 				return res.send(`User Created\n${data}`);
 			})
 			.catch((err) => {
-				return res.status(500).json({ message: "Error Creating Employee" });
+				return res.status(500).json({ message: "Error Creating User" });
 			});
 	} catch (err) {
 		return res.status(500).json(`Internal server error: ${err}`);
@@ -86,7 +82,7 @@ async function getEmp(req, res) {
 		let Email = req.query.Email;
 
 		if (!Email) {
-			await Emp.find({})
+			await Employee.find({})
 				.then((data) => {
 					return res.send(data);
 				})
@@ -94,7 +90,7 @@ async function getEmp(req, res) {
 					return res.status(500).json("Error Getting Employee");
 				});
 		} else {
-			await Emp.findOne({ Email })
+			await Employee.findOne({ Email })
 				.then((data) => {
 					return res.send(data);
 				})
@@ -119,10 +115,9 @@ async function update(req, res) {
 		if (!update) {
 			return res.send("No Data Provided to be Updated");
 		}
-		hash = await bcrypt.hash(updateData.Password, 10);
-		updateData.Password = hash;
-		_user = await Emp.findOne({ Email });
-		Emp.findByIdAndUpdate(_user.id, updateData, { new: true })
+
+		_employee = await Employee.findOne({ Email });
+		Employee.findByIdAndUpdate(_employee.id, updateData, { new: true })
 			.then((updatedEmp) => {
 				if (!updatedEmp) {
 					return res.status(404).json({ message: "Employee not found" });
@@ -145,8 +140,8 @@ async function remove(req, res) {
 		if (!Email) {
 			return res.send("Please Provide Parameter");
 		}
-		_user = await Emp.findOne({ Email });
-		Emp.findByIdAndDelete(_user.id)
+		_employee = await Employee.findOne({ Email });
+		Employee.findByIdAndDelete(_employee.id)
 			.then((deletedEmployee) => {
 				if (!deletedEmployee) {
 					return res.status(404).json({ message: "Employee not found" });

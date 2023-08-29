@@ -1,12 +1,18 @@
 const jwt = require("jsonwebtoken");
-const Emp = require("../models/emp");
+const Employee = require("../models/emp");
 const User = require("../models/user");
-const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
+const generate_token = (ID, Email) => {
+	const token = jwt.sign({ Id: ID, Email: Email }, process.env.TOKEN_KEY, {
+		expiresIn: "1hr",
+	});
+
+	return token;
+};
+
 async function verifyToken_User(req, res, next) {
-	const token =
-		req.body.token || req.query.token || req.headers["user-access-token"];
+	const token = req.headers["user-access-token"];
 
 	if (!token) {
 		return res.status(403).send("A token is required for authentication");
@@ -14,19 +20,18 @@ async function verifyToken_User(req, res, next) {
 
 	try {
 		decoded = jwt.decode(token);
-		const Email = decoded.email;
-		const Password = decoded.password;
-		_user = await User.findOne({ Email });
+		const Id = decoded.Id;
+		
+		const _user = await User.findById(Id);
 		if (!_user) {
 			return res.send("Invalid Token for a User");
 		}
-		if (_user.Email == Email || bcrypt.compare(Password, _user.Password)) {
+		if (_user) {
 			jwt.verify(token, process.env.TOKEN_KEY, function (err, decoded) {
 				if (err) {
 					return res.send(err);
-				} else {
-					return next()
 				}
+				return next();
 			});
 		} else {
 			return res.send("Invalid Token for a User");
@@ -36,11 +41,8 @@ async function verifyToken_User(req, res, next) {
 	}
 }
 
-module.exports.verifyToken_User = verifyToken_User;
-
 async function verifyToken_Emp(req, res, next) {
-	const token =
-		req.body.token || req.query.token || req.headers["emp-access-token"];
+	const token = req.headers["emp-access-token"];
 
 	if (!token) {
 		return res.status(403).send("A token is required for authentication");
@@ -48,13 +50,12 @@ async function verifyToken_Emp(req, res, next) {
 
 	try {
 		decoded = jwt.decode(token);
-		const Email = decoded.email;
-		const Password = decoded.password;
-		_Emp = await Emp.findOne({ Email });
-		if (!_Emp) {
+		const Id = decoded.Id;
+		const _employee = await Employee.findById(Id);
+		if (!_employee) {
 			return res.send("Invalid Token for a User");
 		}
-		if (_Emp.Email == Email || bcrypt.compare(Password, _Emp.Password)) {
+		if (_employee) {
 			jwt.verify(token, process.env.TOKEN_KEY, function (err, decoded) {
 				if (err) {
 					return res.send(err);
@@ -70,4 +71,4 @@ async function verifyToken_Emp(req, res, next) {
 	}
 }
 
-module.exports.verifyToken_Emp = verifyToken_Emp;
+module.exports = { verifyToken_Emp, verifyToken_User, generate_token };

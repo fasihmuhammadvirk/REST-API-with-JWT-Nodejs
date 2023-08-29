@@ -27,5 +27,5 @@ const user_router = require("./routes/user");
 app.use("/unity/", user_router);
 
 const emp_router = require("./routes/emp");
-app.use("/unity", emp_router);
+app.use("/unity/employee", emp_router);
 
