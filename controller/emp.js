@@ -1,5 +1,5 @@
 const Employee = require("../models/emp");
-const auth = require("../middleware/auth")
+const auth = require("../middleware/auth");
 
 function greet(req, res) {
 	try {
@@ -8,8 +8,23 @@ function greet(req, res) {
 		return res.status(500).json("Internal server error");
 	}
 }
-module.exports.greet = greet;
 
+/// For Viewing Profile Photo
+async function viewProfile(req, res) {
+	let Email = req.query.Email;
+
+	await Employee.findOne({ Email })
+		.then((data) => {
+			// Send the saved image data in the response
+			res.contentType(data.Image.contentType);
+			res.send(data.Image.data);
+		})
+		.catch((err) => {
+			return res.status(500).json({ message: "Error Getting User" });
+		});
+}
+
+/// For Login and Token
 async function login(req, res) {
 	try {
 		const Email = req.body.Email;
@@ -36,7 +51,6 @@ async function login(req, res) {
 		return res.status(500).json("Internal server error");
 	}
 }
-module.exports.login = login;
 
 /// For Creating New Employee
 async function create(req, res) {
@@ -46,14 +60,16 @@ async function create(req, res) {
 		let FirstName = req.body.FirstName;
 		let LastName = req.body.LastName;
 		let Password = req.body.Password;
+		let data = req.file.buffer;
+		const contentType = req.file.mimetype;
 
 		if (!Email || !Phone || !Password) {
 			return res.send("Please fill all the fields");
 		}
 
-		const isUser = await Employee.findOne({Email})
-		if (isUser){
-			return res.send("User Already Exists")
+		const isUser = await Employee.findOne({ Email });
+		if (isUser) {
+			return res.send("User Already Exists");
 		}
 
 		let _employee = new Employee({
@@ -62,9 +78,15 @@ async function create(req, res) {
 			FirstName,
 			LastName,
 			Password,
+			Image: {
+				data,
+				contentType,
+			},
 		});
 
-		_employee.save().then((data) => {
+		_employee
+			.save()
+			.then((data) => {
 				return res.send(`User Created\n${data}`);
 			})
 			.catch((err) => {
@@ -74,7 +96,6 @@ async function create(req, res) {
 		return res.status(500).json(`Internal server error: ${err}`);
 	}
 }
-module.exports.create = create;
 
 /// For Getting All Employee
 async function getEmp(req, res) {
@@ -102,7 +123,6 @@ async function getEmp(req, res) {
 		return res.status(500).json("Internal server error");
 	}
 }
-module.exports.getEmp = getEmp;
 
 /// For Update Employee Data
 async function update(req, res) {
@@ -112,6 +132,7 @@ async function update(req, res) {
 			return res.send("Please Provide Parameter");
 		}
 		const updateData = req.body;
+
 		if (!update) {
 			return res.send("No Data Provided to be Updated");
 		}
@@ -131,7 +152,6 @@ async function update(req, res) {
 		return res.status(500).json("Internal server error");
 	}
 }
-module.exports.update = update;
 
 /// For Deleting Employee
 async function remove(req, res) {
@@ -155,4 +175,5 @@ async function remove(req, res) {
 		return res.status(500).json("Internal server error");
 	}
 }
-module.exports.remove = remove;
+
+module.exports = { greet, viewProfile, login, create, getEmp, update, remove };

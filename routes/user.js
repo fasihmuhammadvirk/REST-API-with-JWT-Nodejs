@@ -1,16 +1,15 @@
-const users = require("../controller/user")
-const express = require("express")
-const bodyParser = require("body-parser")
+const users = require("../controller/user");
+const express = require("express");
+const emp = require("../controller/emp");
+const bodyParser = require("body-parser");
 
-var router = express()
-router.use(bodyParser.json())
-
-/// reg user
-router.post("/register",users.reg_user)
+var router = express();
+router.use(bodyParser.json());
 
 /// reg user
-router.post("/login",users.login_user)
+router.post("/register", users.reg_user);
 
-router.post("/getimage",users.get_image)
+/// reg user
+router.get("/login", users.login_user);
 
 module.exports = router;

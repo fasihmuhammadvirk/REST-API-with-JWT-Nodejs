@@ -1,8 +1,7 @@
 const User = require("../models/user");
-const Image = require("../models/img");
 const auth = require("../middleware/auth");
 
-
+/// For Registering User
 async function reg_user(req, res, next) {
 	try {
 		let Email = req.body.Email;
@@ -29,6 +28,7 @@ async function reg_user(req, res, next) {
 	}
 }
 
+/// For Login User
 async function login_user(req, res) {
 	try {
 		const Email = req.body.Email;
@@ -57,9 +57,4 @@ async function login_user(req, res) {
 	}
 }
 
-async function get_image(req, res) {
-	const image = req.body.image;
-	res.send(image);
-}
-
-module.exports = { reg_user, login_user, get_image };
+module.exports = { reg_user, login_user };
