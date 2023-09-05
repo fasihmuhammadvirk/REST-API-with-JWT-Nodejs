@@ -49,13 +49,17 @@
 
 <img src="ReadMe Files/get.png">
 
+#### 3.1 Get One Specific Employee
+
+<img src="ReadMe Files/getbyid.png">
+
+#### 3.1 Create New Employee
+
+<img src="ReadMe Files/Create.png">
 #### 3.1 Create New Employee
 
 <img src="ReadMe Files/Create.png">
 
-#### 3.1 Update Employee
-
-<img src="ReadMe Files/update.png">
 
 #### 3.1 Delete Employee
 
