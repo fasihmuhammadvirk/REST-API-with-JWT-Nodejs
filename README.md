@@ -24,7 +24,7 @@
 ###### <a href="https://www.postman.com/product/tools/#:~:text=Postman%20can%20be%20used%20to,use%20to%20build%20tests%20quickly.">About Postman</a>
 ##### Make a New Request in Postman used this url "http://127.0.0.1:8000/unity/register"
 ##### And In Body Provide this in json format
-{
-  "Email":"newuser@anymail.com",<br>
-  "Password":"123456789" 
-}
+###### {
+######  "Email":"newuser@anymail.com",<br>
+######  "Password":"123456789" 
+###### }
