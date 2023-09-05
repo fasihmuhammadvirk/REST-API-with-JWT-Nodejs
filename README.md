@@ -7,10 +7,10 @@
 6. The Photos is Store in the cloud in this case we are using cloudinary and the image url is saved in the database.
 
 ## Getting Started
-    ##### To Get Start with this Project first Install npm and Nodejs in your Device.
+##### To Get Start with this Project first Install npm and Nodejs in your Device.
         npm install nodejs
         npm install npm
-    ##### After that Open the Project Folder and Install Node Modules for this Project
+ ##### After that Open the Project Folder and Install Node Modules for this Project
         npm i express mongoose body-parser express-fileupload bcryptjs cloudinary
 
 ## Running APIs
@@ -24,9 +24,9 @@
 ###### <a href="https://www.postman.com/product/tools/#:~:text=Postman%20can%20be%20used%20to,use%20to%20build%20tests%20quickly.">About Postman</a>
 
 ### 1. To Register User
-##### Make a New Request in Postman used this url "http://127.0.0.1:8000/unity/register" and in Body Provide data in the form of json as given below
-###### {
-######  "Email":"newuser@anymail.com",<br>
-######  "Password":"123456789" 
-###### }
-###### This is an Dummy Data You Can Changes it Accordingly.
+#####     Make a New Request in Postman used this url "http://127.0.0.1:8000/unity/register" and in Body Provide data in the form of json as given below
+######         {
+######              "Email":"newuser@anymail.com",<br>
+######              "Password":"123456789" 
+######         }
+######     This is an Dummy Data You Can Changes it Accordingly.
