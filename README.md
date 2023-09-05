@@ -43,7 +43,7 @@
 ##### To do CRUD Operation on Employee the user has to give a token in the header.
 #### 3.1 JWT TOKEN
 
-<img src="ReadME Files/token.png">
+<img src="ReadMe Files/token.png">
 
 #### 3.1 Get Employee Data
 
@@ -51,7 +51,7 @@
 
 #### 3.1 Create New Employee
 
-<img src="ReadME Files/create.png">
+<img src="ReadME Files/Create.png">
 
 #### 3.1 Update Employee
 
