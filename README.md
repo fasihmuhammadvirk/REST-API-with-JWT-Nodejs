@@ -51,15 +51,15 @@
 
 #### 3.1 Create New Employee
 
-<img src="ReadME Files/Create.png">
+<img src="ReadMe Files/Create.png">
 
 #### 3.1 Update Employee
 
-<img src="ReadME Files/update.png">
+<img src="ReadMe Files/update.png">
 
 #### 3.1 Delete Employee
 
-<img src="ReadME Files/delete.png">
+<img src="ReadMe Files/delete.png">
 
 
 
