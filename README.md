@@ -47,7 +47,7 @@
 
 #### 3.1 Get Employee Data
 
-<img src="ReadME Files/get.png">
+<img src="ReadMe Files/get.png">
 
 #### 3.1 Create New Employee
 
