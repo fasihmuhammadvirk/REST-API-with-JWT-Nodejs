@@ -26,8 +26,8 @@
 ### 1. To Register User
 #####  Make a New POST Request in Postman used this url "http://127.0.0.1:8000/unity/register" 
 ##### Providr data body in the form of json as given below
-###### {
-###### "Email":"newuser@anymail.com",<br>
-###### "Password":"123456789" 
-###### }
+##### {
+##### "Email":"newuser@anymail.com",<br>
+##### "Password":"123456789" 
+##### }
 ###### This is an Dummy Data You Can Changes it Accordingly.
