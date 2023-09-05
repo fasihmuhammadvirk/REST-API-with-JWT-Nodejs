@@ -24,9 +24,9 @@
 ###### <a href="https://www.postman.com/product/tools/#:~:text=Postman%20can%20be%20used%20to,use%20to%20build%20tests%20quickly.">About Postman</a>
 
 ### 1. To Register User
-#####     Make a New Request in Postman used this url "http://127.0.0.1:8000/unity/register" and in Body Provide data in the form of json as given below
-######         {
-######              "Email":"newuser@anymail.com",<br>
-######              "Password":"123456789" 
-######         }
-######     This is an Dummy Data You Can Changes it Accordingly.
+##### <t> Make a New Request in Postman used this url "http://127.0.0.1:8000/unity/register" and in Body Provide data in the form of json as given below
+###### {
+###### "Email":"newuser@anymail.com",<br>
+###### "Password":"123456789" 
+###### }
+###### This is an Dummy Data You Can Changes it Accordingly.
