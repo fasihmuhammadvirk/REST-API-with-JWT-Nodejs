@@ -7,16 +7,16 @@
 6. The Photos is Store in the cloud in this case we are using cloudinary and the image url is saved in the database.
 
 ## Getting Started
-###### To Get Start with this Project first Install npm and Nodejs in your Device.
+##### To Get Start with this Project first Install npm and Nodejs in your Device.
     npm install nodejs
     npm install npm
-###### After that Open the Project Folder and Install Node Modules for this Project
+##### After that Open the Project Folder and Install Node Modules for this Project
     npm i express mongoose body-parser express-fileupload bcryptjs cloudinary
 
 ## Running APIs
-###### Now to run the Apis first you need in to run the Node App 
-###### Open Your Project Folder in cmd / If using Vs Code Open terminal
-###### Run the Below Command to Activate the Server
+##### Now to run the Apis first you need in to run the Node App 
+##### Open Your Project Folder in cmd / If using Vs Code Open terminal
+##### Run the Below Command to Activate the Server
     npm run dev
 
 ###### After this the app will be accessable on : <a href = "http://127.0.0.1:8000">http://127.0.0.1:8000</a>
