@@ -20,9 +20,7 @@ router.use(
 router.get("/", auth.verifyToken_User, employee.greet);
 
 /// For Creating the Employee
-// router.post("/create", auth.verifyToken_User, employee.create);
-
-router.post("/create", employee.create)
+router.post("/create", auth.verifyToken_User, employee.create);
 
 /// For Getting Employees
 router.get("/get", auth.verifyToken_User, employee.getEmp);
