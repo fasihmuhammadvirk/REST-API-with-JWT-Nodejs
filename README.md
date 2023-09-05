@@ -24,21 +24,17 @@
 ###### <a href="https://www.postman.com/product/tools/#:~:text=Postman%20can%20be%20used%20to,use%20to%20build%20tests%20quickly.">About Postman</a>
 
 ### 1. To Register User
-#####  Make a New POST Request in Postman used this url "http://127.0.0.1:8000/unity/register" 
-##### Providr data body in the form of json as given below
-##### {
-##### "Email":"newuser@anymail.com",<br>
-##### "Password":"123456789" 
-##### }
+#####  Make a New POST Request in Postman used this url "http://127.0.0.1:8000/unity/register".
+##### Providr data body in the form of json as given below,
+##### We can see Below that the User is Registered.
+<img src="ReadMe Files/user_register.png">
+
 ###### This is an Dummy Data You Can Changes it Accordingly.
 
 ### 2. To Login User
 #####  Make a New Get Request in Postman used this url "http://127.0.0.1:8000/unity/login" 
-##### Providr data body in the form of json as given below
-##### {
-##### "Email":"newuser@anymail.com",<br>
-##### "Password":"123456789" 
-##### }
+##### Providr data body in the form of json as given below.
+##### You Can see We Get a JWT Token as a Response.
 
 <img src="ReadMe Files/user_login.png">
 
