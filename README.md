@@ -39,4 +39,28 @@
 <img src="ReadMe Files/user_login.png">
 
 ###### This is an Dummy Data You Can Changes it Accordingly.
+### 3. Crud on Employee
+##### To do CRUD Operation on Employee the user has to give a token in the header.
+#### 3.1 JWT TOKEN
+
+<img src="ReadME Files/token.png">
+
+#### 3.1 Get Employee Data
+
+<img src="ReadME Files/get.png">
+
+#### 3.1 Create New Employee
+
+<img src="ReadME Files/create.png">
+
+#### 3.1 Update Employee
+
+<img src="ReadME Files/update.png">
+
+#### 3.1 Delete Employee
+
+<img src="ReadME Files/delete.png">
+
+
+
 
