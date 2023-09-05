@@ -26,8 +26,8 @@ const employeeSchema = new mongoose.Schema({
 		required: true,
 	},
 	Image: {
-		data: Buffer,
-		contentType: String,
+		type: String,
+		required: true,
 	},
 });
 

@@ -1,5 +1,13 @@
 const Employee = require("../models/emp");
 const auth = require("../middleware/auth");
+const { default: mongoose } = require("mongoose");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+	cloud_name: "dwtppl36t",
+	api_key: "976936398668871",
+	api_secret: "lYO3SVjfn6PHNU-tmSmUJSEd8zs",
+});
 
 function greet(req, res) {
 	try {
@@ -7,21 +15,6 @@ function greet(req, res) {
 	} catch (err) {
 		return res.status(500).json("Internal server error");
 	}
-}
-
-/// For Viewing Profile Photo
-async function viewProfile(req, res) {
-	let Email = req.query.Email;
-
-	await Employee.findOne({ Email })
-		.then((data) => {
-			// Send the saved image data in the response
-			res.contentType(data.Image.contentType);
-			res.send(data.Image.data);
-		})
-		.catch((err) => {
-			return res.status(500).json({ message: "Error Getting User" });
-		});
 }
 
 /// For Login and Token
@@ -60,8 +53,7 @@ async function create(req, res) {
 		let FirstName = req.body.FirstName;
 		let LastName = req.body.LastName;
 		let Password = req.body.Password;
-		let data = req.file.buffer;
-		const contentType = req.file.mimetype;
+		let Image = req.files.Image;
 
 		if (!Email || !Phone || !Password) {
 			return res.send("Please fill all the fields");
@@ -72,26 +64,29 @@ async function create(req, res) {
 			return res.send("User Already Exists");
 		}
 
-		let _employee = new Employee({
-			Email,
-			Phone,
-			FirstName,
-			LastName,
-			Password,
-			Image: {
-				data,
-				contentType,
-			},
-		});
-
-		_employee
-			.save()
-			.then((data) => {
-				return res.send(`User Created\n${data}`);
-			})
-			.catch((err) => {
-				return res.status(500).json({ message: "Error Creating User" });
+		cloudinary.uploader.upload(Image.tempFilePath, (err, result) => {
+			if (err) {
+				res.send(err);
+			}
+			let _employee = new Employee({
+				Email,
+				Phone,
+				FirstName,
+				LastName,
+				Password,
+				Image: result.url,
 			});
+
+			_employee
+				.save()
+				.then((data) => {
+					return res.send(`User Created\n${data}`);
+				})
+				.catch((err) => {
+					console.log(err)
+					return res.status(500).json({ message: "Error Creating User" });
+				});
+		});
 	} catch (err) {
 		return res.status(500).json(`Internal server error: ${err}`);
 	}
@@ -133,7 +128,7 @@ async function update(req, res) {
 		}
 		const updateData = req.body;
 
-		if (!update) {
+		if (!updateData) {
 			return res.send("No Data Provided to be Updated");
 		}
 
@@ -176,4 +171,4 @@ async function remove(req, res) {
 	}
 }
 
-module.exports = { greet, viewProfile, login, create, getEmp, update, remove };
+module.exports = { greet, login, create, getEmp, update, remove };
