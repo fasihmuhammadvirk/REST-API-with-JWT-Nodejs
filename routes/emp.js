@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 
-// const multer = require("multer");
-
 var router = express();
 router.use(bodyParser.json());
 router.use(
@@ -13,8 +11,6 @@ router.use(
 		useTempFiles: true,
 	})
 );
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
 
 /// Greeting Employee
 router.get("/", auth.verifyToken_User, employee.greet);
@@ -33,6 +29,5 @@ router.delete("/delete", auth.verifyToken_User, employee.remove);
 
 /// For Login the Employee
 router.get("/login", employee.login);
-
 
 module.exports = router;

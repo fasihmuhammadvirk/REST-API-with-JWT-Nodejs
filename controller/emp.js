@@ -3,6 +3,7 @@ const auth = require("../middleware/auth");
 const { default: mongoose } = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 
+// Configuration for Cloudinary.
 cloudinary.config({
 	cloud_name: "dwtppl36t",
 	api_key: "976936398668871",
@@ -83,7 +84,7 @@ async function create(req, res) {
 					return res.send(`User Created\n${data}`);
 				})
 				.catch((err) => {
-					console.log(err)
+					console.log(err);
 					return res.status(500).json({ message: "Error Creating User" });
 				});
 		});
