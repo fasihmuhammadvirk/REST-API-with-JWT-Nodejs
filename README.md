@@ -45,19 +45,24 @@
 
 <img src="ReadMe Files/token.png">
 
-#### 3.1 Get Employee Data
+#### 3.2 Get Employee Data
 
 <img src="ReadMe Files/get.png">
 
-#### 3.1 Create New Employee
+#### 3.3 Get One Specific Employee
+
+<img src="ReadMe Files/getbyid.png">
+
+#### 3.4 Create New Employee
 
 <img src="ReadMe Files/Create.png">
 
-#### 3.1 Update Employee
+#### 3.5 Update Employee
 
 <img src="ReadMe Files/update.png">
 
-#### 3.1 Delete Employee
+
+#### 3.6 Delete Employee
 
 <img src="ReadMe Files/delete.png">
 
